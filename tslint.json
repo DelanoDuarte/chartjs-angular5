@@ -90,7 +90,7 @@
     ],
     "radix": true,
     "semicolon": [
-      true,
+      false,
       "always"
     ],
     "triple-equals": [
@@ -124,8 +124,7 @@
       "camelCase"
     ],
     "component-selector": [
-      true,
-      "element",
+      false,
       "kebab-case"
     ],
     "no-output-on-prefix": true,

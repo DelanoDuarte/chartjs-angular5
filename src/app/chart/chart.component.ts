@@ -3,7 +3,7 @@ import { Component, OnInit, Input, Output, EventEmitter, AfterViewInit, ElementR
 import { Chart } from 'chart.js';
 
 @Component({
-  selector: 'app-chartjs-component',
+  selector: 'chartjs-component',
   templateUrl: './chart.component.html',
   styleUrls: ['./chart.component.css']
 })
@@ -15,6 +15,9 @@ export class ChartComponent implements OnInit, AfterViewInit {
 
   @Input()
   chartTitle: string;
+
+  @Input()
+  barChartTitle: string;
 
   @Input()
   chartType: string;
@@ -49,7 +52,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
       data: {
         labels: this.chartLabels,
         datasets: [{
-          label: 'Bar Chart',
+          label: this.barChartTitle === undefined ? '' : this.barChartTitle,
           data: this.chartData,
           backgroundColor: this.generateRandomColors()
           ,
