@@ -1,1 +1,16 @@
-<app-chartjs-component [chartId]="'chart1'" [chartTitle]="'Example Chart'" [chartType]="'pie'" [chartData]='data' [chartLabels]='labels'></app-chartjs-component>
+<!-- Every chart needs to have a unique id -->
+<div align='center'>
+    <app-chartjs-component [chartId]="'chart1'" [chartTitle]="'Example Chart1'" [chartType]="'doughnut'" [chartData]='data' [chartLabels]='labels'></app-chartjs-component>
+</div>
+
+<hr>
+
+<div align='center'>
+    <app-chartjs-component [chartId]="'chart2'" [chartTitle]="'Example Chart2'" [chartType]="'bar'" [chartData]='data' [chartLabels]='labels'></app-chartjs-component>
+</div>
+
+<hr>
+
+<div align='center'>
+    <app-chartjs-component [chartId]="'chart3'" [chartTitle]="'Example Chart3'" [chartType]="'pie'" [chartData]='data' [chartLabels]='labels'></app-chartjs-component>
+</div>

@@ -31,17 +31,15 @@ export class ChartComponent implements OnInit, AfterViewInit {
     private el: ElementRef
   ) { }
 
-  ngOnInit() {
-
-  }
+  ngOnInit() { }
 
   ngAfterViewInit() {
     this.generateChart();
   }
 
   generateChart() {
-    // tslint:disable-next-line:no-debugger
-    debugger;
+
+    this.validateCharId();
 
     const charCtx = <HTMLCanvasElement>document.getElementById(this.chartId);
 
@@ -53,11 +51,8 @@ export class ChartComponent implements OnInit, AfterViewInit {
         datasets: [{
           label: 'Bar Chart',
           data: this.chartData,
-          backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(55, 112, 434, 0.4)',
-          ],
+          backgroundColor: this.generateRandomColors()
+          ,
         }]
       },
       options: {
@@ -69,7 +64,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
         legend: {
           display: true,
           labels: {
-            fontColor: 'rgb(255, 99, 132)'
+            // fontColor: 'rgb(255, 99, 132)'
           }
         },
         animation: {
@@ -81,6 +76,26 @@ export class ChartComponent implements OnInit, AfterViewInit {
     setTimeout(() => {
       this.chart.update();
     }, 500);
+  }
+
+
+  validateCharId() {
+    if (!this.chartId)
+      throw Error('You chart does not have a chartId property, please insert the chartId to identify the canvas')
+  }
+
+  generateRandomColors() {
+    const colors: string[] = [];
+    for (let index = 0; index < this.chartData.length; index++) {
+      let randomColor1 = Math.floor((Math.random() * 255) + 1);
+      let randomColor2 = Math.floor((Math.random() * 255) + 1);
+      let randomColor3 = Math.floor((Math.random() * 255) + 1);
+      let randomColor4 = Math.floor((Math.random() * 255) + 1);
+      let color = `rgb(${randomColor1.toString()},${randomColor2.toString()},${randomColor3.toString()})`;
+      colors.push(color);
+      color = null;
+    }
+    return colors;
   }
 
 }
