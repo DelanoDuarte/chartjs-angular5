@@ -42,7 +42,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
 
   generateChart() {
 
-    this.validateCharId();
+    this.validateChart();
 
     const charCtx = <HTMLCanvasElement>document.getElementById(this.chartId);
 
@@ -61,8 +61,12 @@ export class ChartComponent implements OnInit, AfterViewInit {
       options: {
         defaultColor: 'rgba(255, 159, 64, 0.2)',
         title: {
+          fontSize: 22,
           display: true,
           text: this.chartTitle
+        },
+        tooltip: {
+          enabled: true
         },
         legend: {
           display: true,
@@ -71,20 +75,31 @@ export class ChartComponent implements OnInit, AfterViewInit {
           }
         },
         animation: {
+          duration: 1000,
           easing: 'easeOutBounce'
         }
       }
     });
 
-    setTimeout(() => {
-      this.chart.update();
-    }, 500);
+    // setTimeout(() => {
+    //   this.chart.update();
+    // }, 1000);
   }
 
 
-  validateCharId() {
+  validateChart() {
+
+    if (!this.chartTitle)
+      console.warn('Your chart does not have a title, use chartTitle input to insert one')
+
     if (!this.chartId)
-      throw Error('You chart does not have a chartId property, please insert the chartId to identify the canvas')
+      throw Error('Your chart does not have a chartId property, please insert the chartId to identify the canvas')
+
+    if (this.chartData.length <= 0)
+      throw Error('Your chart does not have the chatDate property, please insert the chartData to load the chart')
+
+    if (this.chartLabels.length <= 0)
+      throw Error('Your chart does not have the chartLabels property, please insert the chartLabels to load the chart')
   }
 
   generateRandomColors() {
@@ -93,8 +108,8 @@ export class ChartComponent implements OnInit, AfterViewInit {
       let randomColor1 = Math.floor((Math.random() * 255) + 1);
       let randomColor2 = Math.floor((Math.random() * 255) + 1);
       let randomColor3 = Math.floor((Math.random() * 255) + 1);
-      let randomColor4 = Math.floor((Math.random() * 255) + 1);
-      let color = `rgb(${randomColor1.toString()},${randomColor2.toString()},${randomColor3.toString()})`;
+      let randomColor4 = Math.random() * (1 - 0.1) + 0.1;
+      let color = `rgba(${randomColor1.toString()},${randomColor2.toString()},${randomColor3.toString()},${randomColor4.toString()})`;
       colors.push(color);
       color = null;
     }
