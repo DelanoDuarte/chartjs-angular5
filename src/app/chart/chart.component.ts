@@ -28,6 +28,12 @@ export class ChartComponent implements OnInit, AfterViewInit {
   @Input()
   chartData: number[] = [];
 
+  @Output()
+  onHover: EventEmitter<any> = new EventEmitter();
+
+  @Output()
+  onClick: EventEmitter<any> = new EventEmitter();
+
   chart: any;
 
   constructor(
@@ -77,13 +83,23 @@ export class ChartComponent implements OnInit, AfterViewInit {
         animation: {
           duration: 1000,
           easing: 'easeOutBounce'
+        },
+
+        onHover: (event) => {
+          this.onHover.emit(event);
+        },
+
+        onClick: (event) => {
+          this.onClick.emit(event.target)
+          console.log(event)
         }
+
       }
     });
 
-    // setTimeout(() => {
-    //   this.chart.update();
-    // }, 1000);
+    setTimeout(() => {
+      this.chart.update();
+    }, 1000);
   }
 
 
