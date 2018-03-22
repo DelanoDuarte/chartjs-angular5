@@ -1,5 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, AfterViewInit, ElementRef } from '@angular/core';
-
+import { Component, OnInit, Input, Output, EventEmitter, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
 import { Chart } from 'chart.js';
 
 @Component({
@@ -9,6 +8,8 @@ import { Chart } from 'chart.js';
 })
 export class ChartComponent implements OnInit, AfterViewInit {
 
+  @ViewChild('chart')
+  chartRef: ElementRef;
 
   @Input()
   chartId: string;
@@ -17,7 +18,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
   chartTitle: string;
 
   @Input()
-  barChartTitle: string;
+  dataSetLabel: string;
 
   @Input()
   chartType: string;
@@ -47,18 +48,16 @@ export class ChartComponent implements OnInit, AfterViewInit {
   }
 
   generateChart() {
-
     this.validateChart();
 
-    const charCtx = <HTMLCanvasElement>document.getElementById(this.chartId);
-
+    const charCtx = this.chartRef.nativeElement.getContext('2d');
     this.chart = new Chart(charCtx, {
       animating: true,
       type: this.chartType,
       data: {
         labels: this.chartLabels,
         datasets: [{
-          label: this.barChartTitle === undefined ? '' : this.barChartTitle,
+          label: this.dataSetLabel === undefined ? '' : this.dataSetLabel,
           data: this.chartData,
           backgroundColor: this.generateRandomColors()
           ,
@@ -90,8 +89,8 @@ export class ChartComponent implements OnInit, AfterViewInit {
         },
 
         onClick: (event) => {
-          this.onClick.emit(event.target)
           console.log(event)
+          this.onClick.emit(event.target)
         }
 
       }
@@ -107,9 +106,6 @@ export class ChartComponent implements OnInit, AfterViewInit {
 
     if (!this.chartTitle)
       console.warn('Your chart does not have a title, use chartTitle input to insert one')
-
-    if (!this.chartId)
-      throw Error('Your chart does not have a chartId property, please insert the chartId to identify the canvas')
 
     if (this.chartData.length <= 0)
       throw Error('Your chart does not have the chatDate property, please insert the chartData to load the chart')

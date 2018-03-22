@@ -1,7 +1,6 @@
 <!-- Every chart needs to have a unique id -->
 <div align='center'>
     <chartjs-component 
-                    [chartId]="'chart1'" 
                     [chartTitle]="'Example Chart1'" 
                     [chartType]="'doughnut'" 
                     [chartData]='data' 
@@ -13,9 +12,8 @@
 
 <div align='center'>
     <chartjs-component 
-                    [chartId]="'chart2'" 
                     [chartTitle]="'Example Chart2'" 
-                    [barChartTitle]="'Bar Chart'" 
+                    [dataSetLabel]="'Bar Chart'" 
                     [chartType]="'bar'"
                     [chartData]='data' 
                     [chartLabels]='labels'>
